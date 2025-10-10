@@ -1,3 +1,33 @@
 body {
   text-align: center;
+  justify-content: center;
+  display: flex;
+}
+#bot-list{
+  list-style-type: none;
+  padding: 0;
+  margin: 2vw;
+}
+
+ul > :nth-child(even){
+  background-color: rgb(243, 243, 243);
+}
+
+.bot{
+  display: flex;
+  flex-direction: row;
+  margin: 0.5vw;
+  justify-content: space-evenly;
+  background-color: rgb(219, 219, 219);
+  border-radius: 1vw;
+}
+
+.bot > *{
+  font-size: 2vw;
+  width: 23vw;
+  margin: 0.25vw;
+}
+
+button {
+  border-radius: 1vw;
 }
