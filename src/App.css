@@ -3,10 +3,15 @@ body {
   justify-content: center;
   display: flex;
 }
+
 #bot-list{
   list-style-type: none;
   padding: 0;
   margin: 2vw;
+}
+
+.header{
+  font-weight: bold;
 }
 
 ul > :nth-child(even){
@@ -20,14 +25,32 @@ ul > :nth-child(even){
   justify-content: space-evenly;
   background-color: rgb(219, 219, 219);
   border-radius: 1vw;
+  display: flex;
+  align-items: center;
 }
 
 .bot > *{
   font-size: 2vw;
-  width: 23vw;
+  width: 19vw;
   margin: 0.25vw;
 }
 
 button {
   border-radius: 1vw;
+}
+
+.bot-status{
+  border-radius: 1vw;
+}
+
+.running{
+  background-color: rgb(255, 185, 55);
+}
+
+.completed{
+  background-color: rgb(33, 160, 33);
+}
+
+.stopped{
+  background-color: rgb(255, 93, 93);
 }
