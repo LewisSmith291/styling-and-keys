@@ -4,9 +4,34 @@ import './App.css';
 function App() {
   return (
     <div className="App">
+      <BotListForm />
       <BotListManager />
     </div>
   );
+}
+
+function BotListForm(){
+  const botTasks = {
+    "EmailManager": "Send/read emails",
+    "NotificationManager": "Send notifications",
+    "DataAnalyzer": "Analyze data"
+  }
+
+  return(
+    <form id="bot-form">
+      <select id="dropdown" defaultValue="">
+        <option id="default-value" disabled value="">-- Bot Type --</option>
+        <option value="EmailManager">Email Manager</option>
+        <option value="NotificationManager">Notification Manager</option>
+        <option value="DataAnalyzer">Data Analyzer</option>
+      </select>
+      <button type="submit">Add Bot</button>
+    </form>
+  )
+}
+
+function AddBot(newBot){
+
 }
 
 function BotListManager(){
@@ -45,8 +70,8 @@ function GetBotList(props){
 
   return (
     <ul id="bot-list">
-      <li key="headers" className='bot'>
-        <div className='header'>ID</div>
+      <li id="header-id" key="headers" className='bot'>
+        <div className='header bot-id'>ID</div>
         <div className='header'>Name</div>
         <div className='header'>Status</div>
         <div className='header'>Task</div>
