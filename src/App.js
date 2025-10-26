@@ -25,7 +25,7 @@ function BotListForm(){
         <option value="NotificationManager">Notification Manager</option>
         <option value="DataAnalyzer">Data Analyzer</option>
       </select>
-      <button type="submit">Add Bot</button>
+      <button id="new-bot-button" type="submit">Add Bot</button>
     </form>
   )
 }
@@ -38,7 +38,7 @@ function BotListManager(){
   const [bots, setBots] = useState([
     {id: 1, name: "Email manager", status: "Running", task: "Send/read emails"},
     {id: 2, name: "Notification manager", status: "Completed", task:"Send notifications"},
-    {id: 3, name: "Data analyzer", status: "Stopped", task: "Analyze data"}
+    {id: 3, name: "Data analyzer", status: "Awaiting", task: "Analyze data"}
   ]);
 
   return (<GetBotList list={bots}/>);
@@ -51,8 +51,8 @@ function GetStatusColour(bot){
   else if (bot.status === "Completed"){
   return (<div className="bot-status completed">{bot.status}</div>)
   }
-  else if (bot.status === "Stopped"){
-  return (<div className="bot-status stopped">{bot.status}</div>)
+  else if (bot.status === "Awaiting"){
+  return (<div className="bot-status awaiting">{bot.status}</div>)
   }
 
 }

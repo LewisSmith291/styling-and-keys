@@ -4,9 +4,14 @@ body {
   display: flex;
 }
 
+/* Bot form */
 #bot-form{
   width: 80vw;
-  margin: 2vw;
+  margin: 1vw;
+  gap: 1vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 #dropdown{
@@ -15,6 +20,13 @@ body {
   text-align-last: center;
 }
 
+#new-bot-button{
+  font-size: 1vw;
+  padding: 0.2vw 1vw;
+  border-radius: 0.5vw;
+}
+
+/* Bot list */
 #bot-list{
   list-style-type: none;
   padding: 0;
@@ -26,11 +38,16 @@ body {
   font-weight: bold;
 }
 
-
 ul > :nth-child(even){
   background-color: rgb(243, 243, 243);
 }
 
+ul > :first-child{
+  background-color: rgb(168, 168, 168);
+}
+
+
+/* Bot row */
 .bot{
   display: flex;
   flex-direction: row;
@@ -48,6 +65,7 @@ ul > :nth-child(even){
   margin: 0.25vw;
 }
 
+/* Bot columns */
 .bot-id{
   width: 10%;
 }
@@ -58,6 +76,7 @@ button {
 
 .bot-status{
   border-radius: 1vw;
+  padding: 0.25vw;
 }
 
 .running{
@@ -68,6 +87,6 @@ button {
   background-color: rgb(33, 160, 33);
 }
 
-.stopped{
+.awaiting{
   background-color: rgb(255, 93, 93);
 }
