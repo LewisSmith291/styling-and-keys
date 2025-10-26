@@ -25,13 +25,13 @@ function BotListForm(){
         <option value="NotificationManager">Notification Manager</option>
         <option value="DataAnalyzer">Data Analyzer</option>
       </select>
-      <button id="new-bot-button" type="submit">Add Bot</button>
+      <button id="new-bot-button" onclick={(e) => this.AddBot(id, e)} type="submit">Add Bot</button>
     </form>
   )
 }
 
-function AddBot(newBot){
-
+function AddBot(id, e){
+  e.preventDefault();
 }
 
 function BotListManager(){
