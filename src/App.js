@@ -11,27 +11,33 @@ function App() {
 }
 
 function BotListForm(){
+  const [newBotType, setNewBotType] = useState("");
   const botTasks = {
     "EmailManager": "Send/read emails",
     "NotificationManager": "Send notifications",
     "DataAnalyzer": "Analyze data"
   }
 
+  const addBot = (event) => {
+    event.preventDefault();
+    
+  }
+
+  const handleChange = (event) =>{
+    setNewBotType(event.target.value);
+  }
+
   return(
     <form id="bot-form">
-      <select id="dropdown" defaultValue="">
+      <select id="dropdown" onChange={handleChange} defaultValue="">
         <option id="default-value" disabled value="">-- Bot Type --</option>
         <option value="EmailManager">Email Manager</option>
         <option value="NotificationManager">Notification Manager</option>
         <option value="DataAnalyzer">Data Analyzer</option>
       </select>
-      <button id="new-bot-button" onclick={(e) => this.AddBot(id, e)} type="submit">Add Bot</button>
+      <button id="new-bot-button" onClick={addBot} type="submit">Add Bot</button>
     </form>
   )
-}
-
-function AddBot(id, e){
-  e.preventDefault();
 }
 
 function BotListManager(){
