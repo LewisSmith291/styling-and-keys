@@ -65,7 +65,7 @@ const [bots, setBots] = useState([
 
   return (
     <div>
-      <BotListForm/>
+      <BotListForm />
       <BotListManager />
     </div>
   )
@@ -78,8 +78,13 @@ function GetBotList(props){
     <div className="bot-name">{bot.name}</div>
     <GetStatusColour status = {bot.status}/>
     <div className="bot-task">{bot.task}</div>
-    <StartJobButton />
-    <RemoveBotButton />
+    <StartJobButton 
+      name = {bot.name}
+      status = {bot.status}
+    />
+    <RemoveBotButton 
+      bot = {bot}
+      />
   </li>
   );
 
@@ -95,15 +100,29 @@ function GetBotList(props){
     }
   }
 
-  function StartJobButton(props){
+  function StartJobButton(bot){
+    const [jobTimer, setJobTimer] = useState(0);
+    const [jobStatus, setJobStatus] = useState(bot.status);
+    if (bot.name === "Email manager"){
+
+    }
+    else if (bot.name === ""){
+
+    }
+
     return(
       <button className="start-job bot-button">Start Job</button>
     )
   }
 
-  function RemoveBotButton(props){
+  function RemoveBotButton(bot){
+    function RemoveBot(){
+      // Needs to remove the bot from the list
+      // the list will update on the screen
+    }
+
     return(
-      <button className="remove-bot bot-button">Remove Bot</button>
+      <button onClick={RemoveBot} className="remove-bot bot-button">Remove Bot</button>
     )
   }
 
