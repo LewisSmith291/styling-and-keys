@@ -71,21 +71,6 @@ const [bots, setBots] = useState([
   )
 }
 
-
-
-function GetStatusColour(bot){
-  if (bot.status === "Running"){
-  return (<div className="bot-status running">{bot.status}</div>)
-  }
-  else if (bot.status === "Completed"){
-  return (<div className="bot-status completed">{bot.status}</div>)
-  }
-  else if (bot.status === "Awaiting"){
-  return (<div className="bot-status awaiting">{bot.status}</div>)
-  }
-
-}
-
 function GetBotList(props){
   const list = props.list.map((bot) => 
   <li className="bot" key={bot.id}>
@@ -93,10 +78,34 @@ function GetBotList(props){
     <div className="bot-name">{bot.name}</div>
     <GetStatusColour status = {bot.status}/>
     <div className="bot-task">{bot.task}</div>
-    <button className="start-job">Start Job</button>
-    <button className="remove-bot">Remove Bot</button>
+    <StartJobButton />
+    <RemoveBotButton />
   </li>
   );
+
+  function GetStatusColour(bot){
+    if (bot.status === "Running"){
+    return (<div className="bot-status running">{bot.status}</div>)
+    }
+    else if (bot.status === "Completed"){
+    return (<div className="bot-status completed">{bot.status}</div>)
+    }
+    else if (bot.status === "Awaiting"){
+    return (<div className="bot-status awaiting">{bot.status}</div>)
+    }
+  }
+
+  function StartJobButton(props){
+    return(
+      <button className="start-job bot-button">Start Job</button>
+    )
+  }
+
+  function RemoveBotButton(props){
+    return(
+      <button className="remove-bot bot-button">Remove Bot</button>
+    )
+  }
 
   return (
     <ul id="bot-list">
@@ -111,5 +120,6 @@ function GetBotList(props){
     </ul>
   );
 }
+
 
 export default App;
