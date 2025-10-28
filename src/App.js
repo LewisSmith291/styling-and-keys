@@ -4,14 +4,26 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <BotListForm />
-      <BotListManager />
+      <BotOverview />
     </div>
   );
 }
 
-function BotListForm(){
+function BotOverview(){
+
   const [newBotType, setNewBotType] = useState("");
+
+  return (
+    <div>
+      <BotListForm 
+        newBot = {() =>}
+      />
+      <BotListManager />
+    </div>
+  )
+}
+
+function BotListForm(newBot){
   const botTasks = {
     "EmailManager": "Send/read emails",
     "NotificationManager": "Send notifications",
@@ -20,11 +32,10 @@ function BotListForm(){
 
   const addBot = (event) => {
     event.preventDefault();
-    
   }
 
   const handleChange = (event) =>{
-    setNewBotType(event.target.value);
+    newBotType(event.target.value);
   }
 
   return(
