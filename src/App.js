@@ -79,7 +79,8 @@ const [bots, setBots] = useState([
             bot = {bot}
             />
         </li>
-    ));
+      )
+    );
 
     function GetStatusColour(bot){
       if (bot.status === "Running"){
