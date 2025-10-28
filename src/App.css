@@ -31,7 +31,7 @@ body {
   list-style-type: none;
   padding: 0;
   margin: 2vw 2vw;
-  width: 80vw;
+  width: 85vw;
 }
 
 .header{
@@ -92,6 +92,13 @@ button {
   background-color: rgb(255, 93, 93);
 }
 
+.bot-button{
+  width: 10%;
+  font-size: 2vw;
+  border-radius: 1vw;
+  border: 0.2vw solid black;
+}
+
 .bot-button:hover{
   filter: brightness(90%);
 }
@@ -101,15 +108,9 @@ button {
 }
 
 .start-job{
-  width: 10%;
   background-color: rgb(114, 196, 114);
-  border-radius: 1vw;
-  border: 0.2vw solid black;
 }
 
 .remove-bot{
-  width: 10%;
   background-color: rgb(215, 126, 126);
-  border-radius: 1vw;
-  border: 0.2vw solid black;
 }
