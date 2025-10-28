@@ -10,56 +10,68 @@ function App() {
 }
 
 function BotOverview(){
+const [newBotType, setNewBotType] = useState("");
+const [bots, setBots] = useState([
+  {id: 1, name: "Email manager", status: "Awaiting", task: "Send/read emails"}
+]);
 
-  const [newBotType, setNewBotType] = useState("");
+// Form for inputting more bots
+  function BotListForm(){
+    const botTasks = {
+      "Email Manager": "Send/read emails",
+      "Notification Manager": "Send notifications",
+      "Data Analyzer": "Analyze data"
+    }
+
+    const addBot = (event) => {
+      // Getting ID
+      let newID;
+      let highestId = 0;
+      bots.forEach(bot => {
+        if (bot.id > highestId){
+          highestId = bot.id;
+        }
+      });
+      newID = highestId + 1;
+      const newBot = {id: newID, name: newBotType, status: "Awaiting", task: botTasks[newBotType]};
+      let tempBotList = bots;
+      tempBotList.push(newBot);
+      setBots(tempBotList);
+      setNewBotType("");
+      event.preventDefault();
+    }
+
+    const handleChange = (event) => {
+      setNewBotType(event.target.value);
+    }
+
+    return(
+      <form id="bot-form">
+        <select id="dropdown" onChange={handleChange} value={newBotType}>
+          <option id="default-value" disabled value="">-- Bot Type --</option>
+          <option value="Email Manager">Email Manager</option>
+          <option value="Notification Manager">Notification Manager</option>
+          <option value="Data Analyzer">Data Analyzer</option>
+        </select>
+        <button id="new-bot-button" onClick={addBot} type="submit">Add Bot</button>
+      </form>
+    )
+  }
+
+  function BotListManager(){
+    return (<GetBotList list={bots}/>);
+  }
+
 
   return (
     <div>
-      <BotListForm 
-        newBot = {() =>}
-      />
+      <BotListForm/>
       <BotListManager />
     </div>
   )
 }
 
-function BotListForm(newBot){
-  const botTasks = {
-    "EmailManager": "Send/read emails",
-    "NotificationManager": "Send notifications",
-    "DataAnalyzer": "Analyze data"
-  }
 
-  const addBot = (event) => {
-    event.preventDefault();
-  }
-
-  const handleChange = (event) =>{
-    newBotType(event.target.value);
-  }
-
-  return(
-    <form id="bot-form">
-      <select id="dropdown" onChange={handleChange} defaultValue="">
-        <option id="default-value" disabled value="">-- Bot Type --</option>
-        <option value="EmailManager">Email Manager</option>
-        <option value="NotificationManager">Notification Manager</option>
-        <option value="DataAnalyzer">Data Analyzer</option>
-      </select>
-      <button id="new-bot-button" onClick={addBot} type="submit">Add Bot</button>
-    </form>
-  )
-}
-
-function BotListManager(){
-  const [bots, setBots] = useState([
-    {id: 1, name: "Email manager", status: "Running", task: "Send/read emails"},
-    {id: 2, name: "Notification manager", status: "Completed", task:"Send notifications"},
-    {id: 3, name: "Data analyzer", status: "Awaiting", task: "Analyze data"}
-  ]);
-
-  return (<GetBotList list={bots}/>);
-}
 
 function GetStatusColour(bot){
   if (bot.status === "Running"){
@@ -81,7 +93,8 @@ function GetBotList(props){
     <div className="bot-name">{bot.name}</div>
     <GetStatusColour status = {bot.status}/>
     <div className="bot-task">{bot.task}</div>
-    <button>Remove Bot</button>
+    <button className="start-job">Start Job</button>
+    <button className="remove-bot">Remove Bot</button>
   </li>
   );
 
