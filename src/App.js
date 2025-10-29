@@ -1,27 +1,39 @@
 import {useState} from 'react';
+import GetBotList from './RenderBotList';
 import './App.css';
 
 function App() {
+  const [bots, setBots] = useState([
+    {id: 1, name: "Email manager", status: "Awaiting", task: "Send/read emails"},
+    {id: 2, name: "Notification Manager", status: "Awaiting", task: "Send notifications"}
+  ]);
   return (
     <div className="App">
-      <BotOverview />
+      <GetBotList 
+        list = {bots}
+      />
     </div>
   );
 }
 
+function BotList(){
+  
+  const botTasks = {
+        "Email Manager": "Send/read emails",
+        "Notification Manager": "Send notifications",
+        "Data Analyzer": "Analyze data"
+      }
+
+}
+
+/*
 function BotOverview(){
 const [newBotType, setNewBotType] = useState("");
 const [bots, setBots] = useState([
   {id: 1, name: "Email manager", status: "Awaiting", task: "Send/read emails"}
 ]);
-
 // Form for inputting more bots
   function BotListForm(){
-    const botTasks = {
-      "Email Manager": "Send/read emails",
-      "Notification Manager": "Send notifications",
-      "Data Analyzer": "Analyze data"
-    }
 
     const addBot = (event) => {
       event.preventDefault();
@@ -63,90 +75,10 @@ const [bots, setBots] = useState([
     return (<GetBotList list={bots}/>);
   }
 
-  function GetBotList(props){
-    const [botList, setBotList] = useState(
-      props.list.map((bot) => 
-        <li className="bot" key={bot.id}>
-          <div className="bot-id">{bot.id}</div>
-          <div className="bot-name">{bot.name}</div>
-          <GetStatusColour status = {bot.status}/>
-          <div className="bot-task">{bot.task}</div>
-          <StartJobButton 
-            name = {bot.name}
-            status = {bot.status}
-          />
-          <RemoveBotButton 
-            bot = {bot}
-            />
-        </li>
-      )
-    );
-
-    function GetStatusColour(bot){
-      if (bot.status === "Running"){
-      return (<div className="bot-status running">{bot.status}</div>)
-      }
-      else if (bot.status === "Completed"){
-      return (<div className="bot-status completed">{bot.status}</div>)
-      }
-      else if (bot.status === "Awaiting"){
-      return (<div className="bot-status awaiting">{bot.status}</div>)
-      }
-    }
-
-    function StartJobButton(bot){
-      const [jobTimer, setJobTimer] = useState(0);
-      const [jobStatus, setJobStatus] = useState(bot.status);
-      if (bot.name === "Email manager"){
-
-      }
-      else if (bot.name === ""){
-
-      }
-
-      return(
-        <button className="start-job bot-button">Start Job</button>
-      )
-    }
-
-    function RemoveBotButton(bot){
-      function RemoveBot(){
-        let tempBotList = botList;
-        let index = tempBotList.indexOf(bot.bot);
-        tempBotList.splice(index,1);
-        setBotList(tempBotList);
-      }
-
-      return(
-        <button onClick={RemoveBot} className="remove-bot bot-button">Remove Bot</button>
-      )
-    }
-
-    return (
-      <ul id="bot-list">
-        <li id="header-id" key="headers" className='bot'>
-          <div className='header bot-id'>ID</div>
-          <div className='header'>Name</div>
-          <div className='header'>Status</div>
-          <div className='header'>Task</div>
-          <div className='header'></div>
-        </li>
-        {botList}
-      </ul>
-    );
-  }
-
-
-
-  return (
-    <div>
-      <BotListForm />
-      <BotListManager />
-    </div>
-  )
 }
 
 
 
+*/
 
 export default App;
