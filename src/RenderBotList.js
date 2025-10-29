@@ -2,12 +2,11 @@ import './App.css'
 import {useState} from 'react';
 
 export default function GetBotList(props){
-  console.log(props.list);
   const botList = useState(
-    props.list.map((bot, id = 0, key = -1) => 
+    props.list.map((bot, id = 0) => 
       <Bot 
-        id = {bot.id = bot.id + 1}
-        key = {bot.key = bot.key + 1}
+        id = {id = id + 1}
+        key = {bot.key}
         name = {bot.name}
         status = {bot.status}
         task = {bot.task}
@@ -15,6 +14,10 @@ export default function GetBotList(props){
     )
   );
   return (botList);
+}
+
+function ListHeader(){
+  
 }
 
 function Bot(bot){
@@ -38,7 +41,7 @@ function StartJobButton(){
 
 function RemoveBotButton(){
   return (
-    <button onClick className="remove-bot bot-button">Remove Bot</button>
+    <button className="remove-bot bot-button">Remove Bot</button>
   )
 }
 

@@ -1,37 +1,41 @@
 import {useState} from 'react';
 import GetBotList from './RenderBotList';
+import BotListForm from './BotForm';
 import './App.css';
 
 function App() {
   const [bots, setBots] = useState([
-    {id: 1, name: "Email manager", status: "Awaiting", task: "Send/read emails"},
-    {id: 2, name: "Notification Manager", status: "Awaiting", task: "Send notifications"}
+    {key: 1, id: 1, name: "Email manager", status: "Awaiting", task: "Send/read emails"},
+    {key: 2, id: 2, name: "Notification Manager", status: "Awaiting", task: "Send notifications"}
   ]);
+  
+  function SetBots(newBots){
+    SetBots(newBots);
+  }
+
+  const botTasks = {
+    "Email Manager": "Send/read emails",
+    "Notification Manager": "Send notifications",
+    "Data Analyzer": "Analyze data"
+  }
+
   return (
     <div className="App">
+      <BotListForm 
+        list = {bots}
+        tasks = {botTasks}
+        updateList = {SetBots}
+      />
       <GetBotList 
         list = {bots}
+        updateList = {SetBots}
       />
     </div>
   );
 }
 
-function BotList(){
-  
-  const botTasks = {
-        "Email Manager": "Send/read emails",
-        "Notification Manager": "Send notifications",
-        "Data Analyzer": "Analyze data"
-      }
-
-}
-
 /*
 function BotOverview(){
-const [newBotType, setNewBotType] = useState("");
-const [bots, setBots] = useState([
-  {id: 1, name: "Email manager", status: "Awaiting", task: "Send/read emails"}
-]);
 // Form for inputting more bots
   function BotListForm(){
 
