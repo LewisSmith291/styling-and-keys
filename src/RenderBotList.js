@@ -1,28 +1,41 @@
 import './App.css'
 import {useState} from 'react';
 
-export default function GetBotList(props){
+function BotList(props){
   const botList = useState(
-    props.list.map((bot, id = 0) => 
+    props.list.map((bot) => 
       <Bot 
-        id = {id = id + 1}
-        key = {bot.key}
+        id = {bot.id}
+        key = {bot.id}
         name = {bot.name}
         status = {bot.status}
         task = {bot.task}
       />
     )
   );
-  return (botList);
+  return (
+    <ul id="bot-list">
+      <ListHeader />
+      {botList}
+    </ul>
+  );
 }
 
 function ListHeader(){
-  
+  return (
+    <li className="header bot">
+      <div className="bot-id">ID</div>
+      <div className="">Name</div>
+      <div className="">Status</div>
+      <div className="">Task</div>
+      <div className=""></div>
+    </li>
+  )
 }
 
 function Bot(bot){
   return (
-    <li className="bot" key={bot.key}>
+    <li className="bot">
       <div className="bot-id">{bot.id}</div>
       <div className="bot-name">{bot.name}</div>
       <GetStatusColour status = {bot.status}/>
@@ -33,13 +46,13 @@ function Bot(bot){
   )
 }
 
-function StartJobButton(){
+function StartJobButton(props){
   return (
   <button className="start-job bot-button">Start Job</button>
   );
 }
 
-function RemoveBotButton(){
+function RemoveBotButton(props){
   return (
     <button className="remove-bot bot-button">Remove Bot</button>
   )
@@ -56,3 +69,4 @@ function GetStatusColour(bot){
     return (<div className="bot-status awaiting">{bot.status}</div>)
   }
 }
+export default BotList;

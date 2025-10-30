@@ -1,16 +1,21 @@
 import {useState} from 'react';
-import GetBotList from './RenderBotList';
+import BotList from './RenderBotList';
 import BotListForm from './BotForm';
 import './App.css';
 
 function App() {
   const [bots, setBots] = useState([
-    {key: 1, id: 1, name: "Email manager", status: "Awaiting", task: "Send/read emails"},
-    {key: 2, id: 2, name: "Notification Manager", status: "Awaiting", task: "Send notifications"}
+    {id: 1, name: "Email manager", status: "Awaiting", task: "Send/read emails"},
+    {id: 2, name: "Notification Manager", status: "Awaiting", task: "Send notifications"}
   ]);
   
   function SetBots(newBots){
     SetBots(newBots);
+  }
+
+  function RemoveBotAtIndex(index){
+    const tempBots = bots.filter((bot) => bot.key !== index);
+    setBots(tempBots);
   }
 
   const botTasks = {
@@ -24,11 +29,10 @@ function App() {
       <BotListForm 
         list = {bots}
         tasks = {botTasks}
-        updateList = {SetBots}
       />
-      <GetBotList 
+      <BotList 
         list = {bots}
-        updateList = {SetBots}
+        removeFunction = {RemoveBotAtIndex}
       />
     </div>
   );
@@ -73,10 +77,6 @@ function BotOverview(){
         <button id="new-bot-button" onClick={addBot} type="submit">Add Bot</button>
       </form>
     )
-  }
-
-  function BotListManager(){
-    return (<GetBotList list={bots}/>);
   }
 
 }
