@@ -2,16 +2,15 @@ import './App.css'
 import {useState} from 'react';
 
 function BotList(props){
-  const botList = useState(
-    props.list.map((bot) => 
-      <Bot 
-        id = {bot.id}
-        key = {bot.id}
-        name = {bot.name}
-        status = {bot.status}
-        task = {bot.task}
-      />
-    )
+  const botList = props.list.map((bot) => 
+    <Bot 
+      id = {bot.id}
+      key = {bot.id}
+      name = {bot.name}
+      status = {bot.status}
+      task = {bot.task}
+      removeFunction = {props.removeFunction}
+    />
   );
   return (
     <ul id="bot-list">
@@ -41,20 +40,23 @@ function Bot(bot){
       <GetStatusColour status = {bot.status}/>
       <div className="bot-task">{bot.task}</div>
       <StartJobButton />
-      <RemoveBotButton />
+      <RemoveBotButton 
+        function = {bot.removeFunction}
+        index = {bot.id}
+      />
     </li>
   )
 }
 
-function StartJobButton(props){
+function StartJobButton(){
   return (
   <button className="start-job bot-button">Start Job</button>
   );
 }
 
-function RemoveBotButton(props){
+function RemoveBotButton(remove){
   return (
-    <button className="remove-bot bot-button">Remove Bot</button>
+    <button onClick={() => {remove.function(remove.index)}} className="remove-bot bot-button">Remove Bot</button>
   )
 }
 

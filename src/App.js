@@ -9,13 +9,12 @@ function App() {
     {id: 2, name: "Notification Manager", status: "Awaiting", task: "Send notifications"}
   ]);
   
-  function SetBots(newBots){
-    SetBots(newBots);
-  }
 
   function RemoveBotAtIndex(index){
-    const tempBots = bots.filter((bot) => bot.key !== index);
+    console.log(bots);
+    const tempBots = bots.filter((bot) => bot.id !== index);
     setBots(tempBots);
+    console.log(bots);
   }
 
   const botTasks = {
