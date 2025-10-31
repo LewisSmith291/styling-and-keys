@@ -6,15 +6,20 @@ import './App.css';
 function App() {
   const [bots, setBots] = useState([
     {id: 1, name: "Email manager", status: "Awaiting", task: "Send/read emails"},
-    {id: 2, name: "Notification Manager", status: "Awaiting", task: "Send notifications"}
+    {id: 2, name: "Notification Manager", status: "Awaiting", task: "Send notifications"},
+    {id: 3, name: "Data Analyzer", status: "Awaiting", task: "Analyze Data"}
   ]);
   
 
   function RemoveBotAtIndex(index){
-    console.log(bots);
     const tempBots = bots.filter((bot) => bot.id !== index);
     setBots(tempBots);
-    console.log(bots);
+  }
+
+  function StartJobAtIndex(index){
+    const tempBots = bots;
+    tempBots[index].status = "Running";
+    setBots(tempBots);
   }
 
   const botTasks = {
@@ -32,6 +37,7 @@ function App() {
       <BotList 
         list = {bots}
         removeFunction = {RemoveBotAtIndex}
+        startJobFunction = {StartJobAtIndex}
       />
     </div>
   );

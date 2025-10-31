@@ -39,7 +39,11 @@ function Bot(bot){
       <div className="bot-name">{bot.name}</div>
       <GetStatusColour status = {bot.status}/>
       <div className="bot-task">{bot.task}</div>
-      <StartJobButton />
+      <StartJobButton 
+        bot = {bot}
+        index = {bot.id}
+        function = {bot.startJobFunction}
+      />
       <RemoveBotButton 
         function = {bot.removeFunction}
         index = {bot.id}
@@ -48,9 +52,9 @@ function Bot(bot){
   )
 }
 
-function StartJobButton(){
+function StartJobButton(start){
   return (
-  <button className="start-job bot-button">Start Job</button>
+  <button onClick={() => {start.function(start.index)}} className="start-job bot-button">Start Job</button>
   );
 }
 
