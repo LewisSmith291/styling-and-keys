@@ -16,10 +16,23 @@ function App() {
     setBots(tempBots);
   }
 
-  function StartJobAtIndex(index){
+  function StartJob(bot){
+
+    bot.nextStatus();
+    /*
     const tempBots = bots;
-    tempBots[index].status = "Running";
-    setBots(tempBots);
+    const index = bot.id;
+    const updatedBot = bot;
+    updatedBot.status = "Running";
+    console.log(updatedBot);
+    tempBots[index] = updatedBot;
+    setBots = tempBots;
+    */
+  }
+
+  function AddBotFunction(bot){
+    const tempBots = bots;
+
   }
 
   const botTasks = {
@@ -33,11 +46,12 @@ function App() {
       <BotListForm 
         list = {bots}
         tasks = {botTasks}
+        updateList = {AddBotFunction}
       />
       <BotList 
         list = {bots}
         removeFunction = {RemoveBotAtIndex}
-        startJobFunction = {StartJobAtIndex}
+        startJobFunction = {StartJob}
       />
     </div>
   );
