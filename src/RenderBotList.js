@@ -10,6 +10,7 @@ function BotList(props){
       status = {bot.status}
       task = {bot.task}
       removeFunction = {props.removeFunction}
+      startFunction = {props.startJobFunction}
     />
   );
   return (
@@ -33,43 +34,29 @@ function ListHeader(){
 }
 
 function Bot(bot){
-  const [id, setId] = useState(bot.id);
-  const [name, setName] = useState(bot.name);
-  const [status, setStatus] = useState(bot.status);
-  const [task, setTask] = useState(bot.task);
 
   return (
     <li className="bot">
-      <div className="bot-id">{id}</div>
-      <div className="bot-name">{name}</div>
-      <GetStatusColour status = {status}/>
-      <div className="bot-task">{task}</div>
+      <div className="bot-id">{bot.id}</div>
+      <div className="bot-name">{bot.name}</div>
+      <GetStatusColour status = {bot.status}/>
+      <div className="bot-task">{bot.task}</div>
       <StartJobButton 
         bot = {bot}
-        index = {id}
-        function = {bot.startJobFunction}
+        index = {bot.id}
+        function = {bot.startFunction}
       />
       <RemoveBotButton 
         function = {bot.removeFunction}
-        index = {id}
+        index = {bot.id}
       />
     </li>
   )
 }
 
-const nextStatus = (bot) =>{
-  let newStatus = "Awaiting";
-  if (bot.status === "Awaiting"){
-    bot.setStatus("Running");
-  }
-  else if (bot.status === "Running"){
-    bot.setStatus("Completed");
-  }
-}
-
 function StartJobButton(start){
   return (
-  <button onClick={() => {nextStatus(start.bot)}} className="start-job bot-button">Start Job</button>
+  <button onClick={() => {start.function(start.bot)}} className="start-job bot-button">Start Job</button>
   );
 }
 

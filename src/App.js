@@ -17,17 +17,19 @@ function App() {
   }
 
   function StartJob(bot){
+    let newStatus = "Awaiting";
 
-    bot.nextStatus();
-    /*
-    const tempBots = bots;
-    const index = bot.id;
-    const updatedBot = bot;
-    updatedBot.status = "Running";
-    console.log(updatedBot);
-    tempBots[index] = updatedBot;
-    setBots = tempBots;
-    */
+    if (bot.status === "Awaiting"){
+      newStatus = "Running";
+    }
+    else return;
+    const newBot = {id: bot.id, name: bot.name, status: newStatus, task: bot.task};
+
+    const newBotArray = bots.map((obj) => {
+      return obj.id === bot.id ? newBot : obj;
+    });
+    console.log(newBotArray);
+    setBots(newBotArray);
   }
 
   function AddBotFunction(bot){
