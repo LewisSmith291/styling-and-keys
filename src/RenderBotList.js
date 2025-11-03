@@ -11,6 +11,7 @@ function BotList(props){
       task = {bot.task}
       removeFunction = {props.removeFunction}
       startFunction = {props.startJobFunction}
+      isRunning = {bot.isRunning}
     />
   );
   return (
@@ -34,7 +35,6 @@ function ListHeader(){
 }
 
 function Bot(bot){
-
   return (
     <li className="bot">
       <div className="bot-id">{bot.id}</div>
@@ -55,9 +55,14 @@ function Bot(bot){
 }
 
 function StartJobButton(start){
-  return (
-  <button onClick={() => {start.function(start.bot)}} className="start-job bot-button">Start Job</button>
-  );
+  if (start.bot.status !== "Awaiting"){
+    return (<div className="bot-button-completed"></div>)
+  }
+  else {
+    return (
+      <button onClick={() => {start.function(start.bot)}} className="start-job bot-button">Start Job</button>
+    );
+  }
 }
 
 function RemoveBotButton(remove){

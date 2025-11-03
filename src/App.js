@@ -1,20 +1,20 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import BotList from './RenderBotList';
 import BotListForm from './BotForm';
 import './App.css';
 
 function App() {
   const [bots, setBots] = useState([
-    {id: 1, name: "Email Manager", status: "Awaiting", task: "Send/read emails"},
-    {id: 2, name: "Notification Manager", status: "Awaiting", task: "Send notifications"},
-    {id: 3, name: "Data Analyzer", status: "Awaiting", task: "Analyze Data"}
+    {id: 1, name: "Email Manager", status: "Awaiting", task: "Send/read emails", isRunning: false},
+    {id: 2, name: "Notification Manager", status: "Awaiting", task: "Send notifications", isRunning: false},
+    {id: 3, name: "Data Analyzer", status: "Awaiting", task: "Analyze Data", isRunning: false}
   ]);
 
   function RemoveBotAtIndex(index){
     const tempBots = bots.filter((bot) => bot.id !== index);
     setBots(tempBots);
   }
-
+  
   function StartJob(bot){
     let newStatus = "Awaiting";
     let delay = 1;
@@ -23,9 +23,8 @@ function App() {
     if (bot.status === "Awaiting"){
       newStatus = "Running";
     }
-    else return;
 
-    const newBot = {id: bot.id, name: bot.name, status: newStatus, task: bot.task};
+    const newBot = {id: bot.id, name: bot.name, status: newStatus, task: bot.task, isRunning: true};
     const newBotArray = bots.map((obj) => {
       // Replace old bot with new bot containing updated status
       return obj.id === bot.id ? newBot : obj;
@@ -34,21 +33,35 @@ function App() {
     setBots(newBotArray);
 
     const timeoutID = setTimeout(() => {
-      FinishJob(newBot); 
+      //FinishJob(newBot);
+      
+        const newStatus = "Completed";
+        const newBot = {id: bot.id, name: bot.name, status: newStatus, task: bot.task};
+        const newBotArray = bots.map((obj) => {
+          // Replace old bot with new bot containing updated status
+          if (obj.isRunning){
+
+          }
+          return obj.id === bot.id ? newBot : obj;
+        });
+        setBots(newBotArray);
+      
     }, GetTaskTimer(newBot.name));
       return () => clearTimeout(timeoutID);
   }
 
+  // Changes the running status to completed status after a random timer depending on job
   function FinishJob(bot){
     const newStatus = "Completed";
     const newBot = {id: bot.id, name: bot.name, status: newStatus, task: bot.task};
-    console.log(newBot);
     const newBotArray = bots.map((obj) => {
       // Replace old bot with new bot containing updated status
+      if (obj.isRunning){
+
+      }
       return obj.id === bot.id ? newBot : obj;
     });
     setBots(newBotArray);
-
   }
 
   // Returns a timer based on the task type
@@ -58,10 +71,13 @@ function App() {
     switch (taskType){
       case "Email Manager":
         time = Math.random() * 2;
+        break;
       case "Notification Manager":
         time = Math.random() * 3;
+        break;
       case "Data Analyzer":
         time = Math.random() * 4;
+        break;
     };
     console.log(time);
     return time * 1000;
