@@ -5,11 +5,10 @@ import './App.css';
 
 function App() {
   const [bots, setBots] = useState([
-    {id: 1, name: "Email manager", status: "Awaiting", task: "Send/read emails"},
-    {id: 2, name: "Notification Manager", status: "Awaiting", task: "Send notifications"},
-    {id: 3, name: "Data Analyzer", status: "Awaiting", task: "Analyze Data"}
+    {id: 1, name: "Email manager", status: "Running", task: "Send/read emails"},
+    //{id: 2, name: "Notification Manager", status: "Awaiting", task: "Send notifications"},
+    //{id: 3, name: "Data Analyzer", status: "Awaiting", task: "Analyze Data"}
   ]);
-  
 
   function RemoveBotAtIndex(index){
     const tempBots = bots.filter((bot) => bot.id !== index);
@@ -19,6 +18,7 @@ function App() {
   function StartJob(bot){
     let newStatus = "Awaiting";
 
+    // Only allow button press when bot is awaiting
     if (bot.status === "Awaiting"){
       newStatus = "Running";
     }
@@ -26,9 +26,10 @@ function App() {
     const newBot = {id: bot.id, name: bot.name, status: newStatus, task: bot.task};
 
     const newBotArray = bots.map((obj) => {
+      // Replace old bot with new bot containing updated status
       return obj.id === bot.id ? newBot : obj;
     });
-    console.log(newBotArray);
+    
     setBots(newBotArray);
   }
 

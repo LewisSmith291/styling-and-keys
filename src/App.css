@@ -98,6 +98,12 @@ button {
   border-radius: 1vw;
   border: 0.2vw solid black;
 }
+.bot-button-completed{
+  width: 20%;
+  font-size: 2vw;
+  border-radius: 1vw;
+  border: 0.2vw solid black;
+}
 
 .bot-button:hover{
   filter: brightness(90%);
