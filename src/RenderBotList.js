@@ -1,5 +1,5 @@
 import './App.css'
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 
 function BotList(props){
   const botList = props.list.map((bot) => 
@@ -67,7 +67,7 @@ function RemoveBotButton(remove){
 }
 
 function GetStatusColour(bot){
-  const [style, setStyle] = useState("bot-status " + bot.status.toLowerCase());
+  /*
   const delay = 2;
   let newStyle = "";
   if (bot.status === "Awaiting") newStyle = "running";
@@ -82,9 +82,9 @@ function GetStatusColour(bot){
   );
 
   return (<div className={style}>{bot.status}</div>);
+  */
 
   if (bot.status === "Running"){
-
     return (<div className="bot-status running">{bot.status}</div>);
   }
   else if (bot.status === "Completed"){

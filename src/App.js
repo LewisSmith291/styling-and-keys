@@ -1,13 +1,13 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import BotList from './RenderBotList';
 import BotListForm from './BotForm';
 import './App.css';
 
 function App() {
   const [bots, setBots] = useState([
-    {id: 1, name: "Email manager", status: "Running", task: "Send/read emails"},
-    //{id: 2, name: "Notification Manager", status: "Awaiting", task: "Send notifications"},
-    //{id: 3, name: "Data Analyzer", status: "Awaiting", task: "Analyze Data"}
+    {id: 1, name: "Email Manager", status: "Awaiting", task: "Send/read emails"},
+    {id: 2, name: "Notification Manager", status: "Awaiting", task: "Send notifications"},
+    {id: 3, name: "Data Analyzer", status: "Awaiting", task: "Analyze Data"}
   ]);
 
   function RemoveBotAtIndex(index){
@@ -17,20 +17,54 @@ function App() {
 
   function StartJob(bot){
     let newStatus = "Awaiting";
+    let delay = 1;
 
     // Only allow button press when bot is awaiting
     if (bot.status === "Awaiting"){
       newStatus = "Running";
     }
     else return;
-    const newBot = {id: bot.id, name: bot.name, status: newStatus, task: bot.task};
 
+    const newBot = {id: bot.id, name: bot.name, status: newStatus, task: bot.task};
     const newBotArray = bots.map((obj) => {
       // Replace old bot with new bot containing updated status
       return obj.id === bot.id ? newBot : obj;
     });
     
     setBots(newBotArray);
+
+    const timeoutID = setTimeout(() => {
+      FinishJob(newBot); 
+    }, GetTaskTimer(newBot.name));
+      return () => clearTimeout(timeoutID);
+  }
+
+  function FinishJob(bot){
+    const newStatus = "Completed";
+    const newBot = {id: bot.id, name: bot.name, status: newStatus, task: bot.task};
+    console.log(newBot);
+    const newBotArray = bots.map((obj) => {
+      // Replace old bot with new bot containing updated status
+      return obj.id === bot.id ? newBot : obj;
+    });
+    setBots(newBotArray);
+
+  }
+
+  // Returns a timer based on the task type
+  // Used to decide how long a task takes to complete
+  function GetTaskTimer(taskType){
+    let time = 2;
+    switch (taskType){
+      case "Email Manager":
+        time = Math.random() * 2;
+      case "Notification Manager":
+        time = Math.random() * 3;
+      case "Data Analyzer":
+        time = Math.random() * 4;
+    };
+    console.log(time);
+    return time * 1000;
   }
 
   function AddBotFunction(bot){
