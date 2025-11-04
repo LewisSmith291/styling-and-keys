@@ -4,23 +4,39 @@ import BotListForm from './BotForm';
 import './App.css';
 
 function App() {
+  // List of all bots on the page
   const [bots, setBots] = useState([
     {id: 1, name: "Email Manager", status: "Awaiting", task: "Send/read emails"},
     {id: 2, name: "Notification Manager", status: "Awaiting", task: "Send notifications"},
     {id: 3, name: "Data Analyzer", status: "Awaiting", task: "Analyze Data"}
   ]);
 
+  // Removes the bot at the given index
   function RemoveBotAtIndex(index){
     const tempBots = bots.filter((bot) => bot.id !== index);
     setBots(tempBots);
   }
 
-
-  function AddBotFunction(bot){
+  // Adds a new bot to the bot list with the given name / task
+  function AddBotFunction(botName){
     const tempBots = bots;
-
+    const newID = GetNewID();
+    const newBot = {id: newID, name: botName, status: "Awaiting", task: botTasks[botName]};
+    setBots(tempBots.concat(newBot));
   }
 
+  // Returns an ID to be used by a new bot
+  function GetNewID(){
+    let highestID = 0;
+    bots.forEach(currentBot => {
+      if (currentBot.id > highestID){
+        highestID = currentBot.id;
+      }
+    });
+    return highestID + 1;
+  }
+
+  // Stores the task string to be accessed using the name of the bot
   const botTasks = {
     "Email Manager": "Send/read emails",
     "Notification Manager": "Send notifications",
@@ -31,7 +47,7 @@ function App() {
     <div className="App">
       <BotListForm 
         tasks = {botTasks}
-        updateList = {AddBotFunction}
+        addFunction = {AddBotFunction}
       />
       <BotList 
         list = {bots}
@@ -58,52 +74,5 @@ export function GetTaskTimer(taskType){
   };
   return time * 1000;
 }
-
-/*
-function BotOverview(){
-// Form for inputting more bots
-  function BotListForm(){
-
-    const addBot = (event) => {
-      event.preventDefault();
-      if (newBotType==="") return;
-      // Getting ID
-      let newID;
-      let highestId = 0;
-      bots.forEach(bot => {
-        if (bot.id > highestId){
-          highestId = bot.id;
-        }
-      });
-      newID = highestId + 1;
-      const newBot = {id: newID, name: newBotType, status: "Awaiting", task: botTasks[newBotType]};
-      let tempBotList = bots;
-      tempBotList.push(newBot);
-      setBots(tempBotList);
-      setNewBotType("");
-    }
-
-    const handleChange = (event) => {
-      setNewBotType(event.target.value);
-    }
-
-    return(
-      <form id="bot-form">
-        <select id="dropdown" onChange={handleChange} value={newBotType}>
-          <option id="default-value" disabled value="">-- Bot Type --</option>
-          <option value="Email Manager">Email Manager</option>
-          <option value="Notification Manager">Notification Manager</option>
-          <option value="Data Analyzer">Data Analyzer</option>
-        </select>
-        <button id="new-bot-button" onClick={addBot} type="submit">Add Bot</button>
-      </form>
-    )
-  }
-
-}
-
-
-
-*/
 
 export default App;
