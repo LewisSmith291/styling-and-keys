@@ -2,11 +2,11 @@ import './App.css';
 import {useState} from 'react';
 
 export default function BotListForm(props){
-    const [bots, setBots] = useState(props.list);
     const [newBotType, setNewBotType] = useState("");
 
     function addBot(event){
         props.updateList(newBotType);
+        console.log(newBotType);
     }
     
     function AddBotButton(event){

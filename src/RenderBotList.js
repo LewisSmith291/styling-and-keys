@@ -1,4 +1,5 @@
 import './App.css'
+import {GetTaskTimer} from './App';
 import {useState} from 'react';
 
 function BotList(props){
@@ -11,7 +12,6 @@ function BotList(props){
       task = {bot.task}
       removeFunction = {props.removeFunction}
       startFunction = {props.startJobFunction}
-      isRunning = {bot.isRunning}
     />
   );
   return (
@@ -29,38 +29,52 @@ function ListHeader(){
       <div className="">Name</div>
       <div className="">Status</div>
       <div className="">Task</div>
-      <div className=""></div>
+      <div className="">Actions</div>
     </li>
   )
 }
 
 function Bot(bot){
+  const [id, setId] = useState(bot.id);
+  const [name, setName] = useState(bot.name);
+  const [status, setStatus] = useState(bot.status);
+  const [task, setTask] = useState(bot.task);
+
+  function StartJob(){
+    if (status !== "Awaiting") return;
+    setStatus("Running");
+      const timeout = setTimeout(() => {
+        setStatus("Completed");
+    },GetTaskTimer(name));
+    return () => clearTimeout(timeout);
+  }
+
   return (
     <li className="bot">
-      <div className="bot-id">{bot.id}</div>
-      <div className="bot-name">{bot.name}</div>
-      <GetStatusColour status = {bot.status}/>
-      <div className="bot-task">{bot.task}</div>
+      <div className="bot-id">{id}</div>
+      <div className="bot-name">{name}</div>
+      <GetStatusColour status = {status}/>
+      <div className="bot-task">{task}</div>
       <StartJobButton 
-        bot = {bot}
-        index = {bot.id}
-        function = {bot.startFunction}
+        status = {status}
+        index = {id}
+        function = {StartJob}
       />
       <RemoveBotButton 
         function = {bot.removeFunction}
-        index = {bot.id}
+        index = {id}
       />
     </li>
   )
 }
 
 function StartJobButton(start){
-  if (start.bot.status !== "Awaiting"){
+  if (start.status !== "Awaiting"){
     return (<div className="bot-button-completed"></div>)
   }
   else {
     return (
-      <button onClick={() => {start.function(start.bot)}} className="start-job bot-button">Start Job</button>
+      <button onClick={() => {start.function()}} className="start-job bot-button">Start Job</button>
     );
   }
 }
@@ -72,22 +86,7 @@ function RemoveBotButton(remove){
 }
 
 function GetStatusColour(bot){
-  /*
-  const delay = 2;
-  let newStyle = "";
-  if (bot.status === "Awaiting") newStyle = "running";
-  else if (bot.status === "Running" || bot.status === "Completed") newStyle = "completed";
-
-  useEffect(() => {
-    const timeoutID = setTimeout(() => {
-      setStyle("bot-status " + newStyle);
-    }, delay * 1000);
-    return () => clearTimeout(timeoutID);
-    }
-  );
-
-  return (<div className={style}>{bot.status}</div>);
-  */
+  
 
   if (bot.status === "Running"){
     return (<div className="bot-status running">{bot.status}</div>);
