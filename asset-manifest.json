@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/styling-and-keys/static/css/main.06a360bf.css",
+    "main.js": "/styling-and-keys/static/js/main.6a322ab3.js",
+    "static/js/453.61e5513a.chunk.js": "/styling-and-keys/static/js/453.61e5513a.chunk.js",
+    "index.html": "/styling-and-keys/index.html",
+    "main.06a360bf.css.map": "/styling-and-keys/static/css/main.06a360bf.css.map",
+    "main.6a322ab3.js.map": "/styling-and-keys/static/js/main.6a322ab3.js.map",
+    "453.61e5513a.chunk.js.map": "/styling-and-keys/static/js/453.61e5513a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.06a360bf.css",
+    "static/js/main.6a322ab3.js"
+  ]
+}
